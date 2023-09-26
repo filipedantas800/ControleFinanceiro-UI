@@ -15,6 +15,9 @@ import { AtualizarCategoriaComponent } from './components/Categoria/atualizar-ca
 import { DialogExclusaoCategoriasComponent } from './components/Categoria/listagem-categorias/listagem-categorias.component';
 
 import { MatTableModule } from '@angular/material/table';
+
+//import { MatTableDataSource } from '@angular/material/table';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +27,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+// import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +55,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatGridListModule,
     MatDialogModule,
-    FormsModule
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatSortModule,
+    // MatTableDataSource,
+    // MatSnackBarModule,
+    FormsModule,
   ],
   providers: [
     TiposService,
