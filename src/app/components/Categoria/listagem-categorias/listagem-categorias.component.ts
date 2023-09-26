@@ -2,6 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Categoria } from 'src/app/models/Categoria';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listagem-categorias',
@@ -12,16 +16,24 @@ export class ListagemCategoriasComponent implements OnInit {
 
   categorias = new MatTableDataSource<any>();
   displayedColumns!: string[];
+  autoCompleteInput = new FormControl();
+  opcoesCategorias: string[] = [];
+  nomesCategorias!: Observable<string[]>;
 
   constructor(private categoriasService: CategoriasService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.categoriasService.PegarTodos().subscribe(resultado => {
+      resultado.forEach(categoria => {
+        this.opcoesCategorias.push(categoria.nome);
+      });
+
       this.categorias.data = resultado;
     });
 
     this.displayedColumns = this.ExibirColunas();
+    this.nomesCategorias = this.autoCompleteInput.valueChanges.pipe(startWith(''), map(nome => this.FiltrarNomes(nome)));
   }
 
   ExibirColunas(): string[] {
@@ -46,6 +58,25 @@ export class ListagemCategoriasComponent implements OnInit {
           this.displayedColumns = this.ExibirColunas();
         }
       });
+  }
+
+  FiltrarNomes(nome: string): string[] {
+    if (nome.trim().length >= 4) {
+      this.categoriasService.FiltrarCategorias(nome.toLocaleLowerCase()).subscribe(resultado => {
+        this.categorias.data = resultado;
+      });
+    }
+    else {
+      if (nome === '') {
+        this.categoriasService.PegarTodos().subscribe(resultado => {
+          this.categorias.data = resultado;
+        })
+      }
+    }
+
+    return this.opcoesCategorias.filter(categoria =>
+      categoria.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+    );
   }
 }
 
