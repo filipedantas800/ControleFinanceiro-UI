@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tipo } from 'src/app/models/Tipo';
 import { TiposService } from 'src/app/services/tipos.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,9 +30,9 @@ export class NovaCategoriaComponent implements OnInit {
     });
 
     this.formulario = new FormGroup({
-      nome: new FormControl(null),
-      icone: new FormControl(null),
-      tipoId: new FormControl(null),
+      nome: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      icone: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+      tipoId: new FormControl(null, [Validators.required]),
     });
   }
 
