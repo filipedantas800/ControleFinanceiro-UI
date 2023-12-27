@@ -6,7 +6,7 @@ import { Categoria } from 'src/app/models/Categoria';
 import { Tipo } from 'src/app/models/Tipo';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { TiposService } from 'src/app/services/tipos.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-atualizar-categoria',
   templateUrl: './atualizar-categoria.component.html',
@@ -18,13 +18,17 @@ export class AtualizarCategoriaComponent implements OnInit {
   categoria!: Observable<Categoria>;
   tipos!: Tipo[];
   formulario: any;
+  resultadoNull: string | undefined;
+  erros!: string[];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private tiposService: TiposService,
-    private categoriasService: CategoriasService) { }
+    private categoriasService: CategoriasService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.erros = [];
     this.categoriaId = this.route.snapshot.params.id;
     this.tiposService.PegarTodos().subscribe(resultado => {
       this.tipos = resultado;
@@ -49,11 +53,26 @@ export class AtualizarCategoriaComponent implements OnInit {
 
   EnviarFormulario(): void {
     const categoria = this.formulario.value;
+    this.erros = [];
     this.categoriasService
       .AtualizarCategoria(this.categoriaId, categoria)
       .subscribe(resultado => {
         this.router.navigate(['categorias/listagemcategorias']);
-      });
+        this.snackBar.open(resultado.mensagem, this.resultadoNull, {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+      },
+        (err) => {
+          if (err.status === 400) {
+            for (const campo in err.error.errors) {
+              if (err.error.errors.hasOwnProperty(campo)) {
+                this.erros.push(err.error.errors[campo]);
+              }
+            }
+          }
+        });
   }
 
   VoltarListagem(): void {

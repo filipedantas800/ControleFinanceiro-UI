@@ -16,8 +16,6 @@ import { DialogExclusaoCategoriasComponent } from './components/Categoria/listag
 
 import { MatTableModule } from '@angular/material/table';
 
-//import { MatTableDataSource } from '@angular/material/table';
-
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -30,7 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,8 +56,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSnackBarModule,
     // MatTableDataSource,
-    // MatSnackBarModule,
     FormsModule,
   ],
   providers: [

@@ -1,4 +1,4 @@
-import { CategoriasService } from 'src/app/services/categorias.service';
+import { CategoriasService } from './../../../services/categorias.service';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,7 +8,7 @@ import { Categoria } from 'src/app/models/Categoria';
 import { startWith, map } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-listagem-categorias',
   templateUrl: './listagem-categorias.component.html',
@@ -96,12 +96,19 @@ export class ListagemCategoriasComponent implements OnInit {
   templateUrl: 'dialog-exclusao-categorias.html'
 })
 export class DialogExclusaoCategoriasComponent {
+  resultadoNull: string | undefined;
   constructor(@Inject(MAT_DIALOG_DATA) public dados: any,
-    private categoriasSevice: CategoriasService) { }
+    private categoriasSevice: CategoriasService,
+    private snackBar: MatSnackBar) { }
 
   ExcluirCategoria(categoriaId: any): void {
-    this.categoriasSevice.ExcluirCategoria(categoriaId).subscribe(resultado => {
-
-    });
+    this.categoriasSevice.ExcluirCategoria(categoriaId)
+      .subscribe(resultado => {
+        this.snackBar.open(resultado.mensagem, this.resultadoNull, {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+      });
   }
 }
