@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 
 import { TiposService } from '../app/services/tipos.service';
 import { CategoriasService } from './services/categorias.service';
+import { FuncoesService } from './services/funcoes.service';
+
 import { ListagemCategoriasComponent } from './components/Categoria/listagem-categorias/listagem-categorias.component';
 import { NovaCategoriaComponent } from './components/Categoria/nova-categoria/nova-categoria.component';
 import { AtualizarCategoriaComponent } from './components/Categoria/atualizar-categoria/atualizar-categoria.component';
@@ -65,6 +67,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   providers: [
     TiposService,
     CategoriasService,
+    FuncoesService,
     HttpClientModule
   ],
   bootstrap: [AppComponent]
