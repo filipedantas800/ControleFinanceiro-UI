@@ -4,6 +4,7 @@ import { ListagemCategoriasComponent } from './components/Categoria/listagem-cat
 import { NovaCategoriaComponent } from './components/Categoria/nova-categoria/nova-categoria.component';
 import { AtualizarCategoriaComponent } from './components/Categoria/atualizar-categoria/atualizar-categoria.component';
 import { ListagemFuncoesComponent } from './components/Funcao/listagem-funcoes/listagem-funcoes.component';
+import { NovaFuncaoComponent } from './components/Funcao/nova-funcao/nova-funcao.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,9 @@ const routes: Routes = [
   {
     path: 'funcoes/listagemfuncoes', component: ListagemFuncoesComponent
   },
-
+  {
+    path: 'funcoes/novafuncao', component: NovaFuncaoComponent
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
