@@ -32,13 +32,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { ListagemFuncoesComponent } from './components/Funcao/listagem-funcoes/listagem-funcoes.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     ListagemCategoriasComponent,
     NovaCategoriaComponent,
     AtualizarCategoriaComponent,
-    DialogExclusaoCategoriasComponent
+    DialogExclusaoCategoriasComponent,
+    ListagemFuncoesComponent,
   ],
   imports: [
     BrowserModule,

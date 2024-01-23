@@ -5,7 +5,8 @@ import { Funcao } from '../models/Funcao';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('TokenUsuarioLogado')}`
   })
 };
 
@@ -38,5 +39,10 @@ export class FuncoesService {
   ExcluirFuncao(funcaoId: string): Observable<any> {
     const apiUrl = `${this.url}/${funcaoId}`;
     return this.http.delete<string>(apiUrl, httpOptions);
+  }
+
+  FiltrarFuncoes(nomeFuncao: string): Observable<Funcao[]> {
+    const apiUrl = `${this.url}/FiltrarFuncoes/${nomeFuncao}`;
+    return this.http.get<Funcao[]>(apiUrl);
   }
 }
