@@ -5,6 +5,7 @@ import { NovaCategoriaComponent } from './components/Categoria/nova-categoria/no
 import { AtualizarCategoriaComponent } from './components/Categoria/atualizar-categoria/atualizar-categoria.component';
 import { ListagemFuncoesComponent } from './components/Funcao/listagem-funcoes/listagem-funcoes.component';
 import { NovaFuncaoComponent } from './components/Funcao/nova-funcao/nova-funcao.component';
+import { AtualizarFuncaoComponent } from './components/Funcao/atualizar-funcao/atualizar-funcao.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
   },
   {
     path: 'funcoes/novafuncao', component: NovaFuncaoComponent
+  },
+  {
+    path: 'funcoes/atualizarfuncao/:id', component: AtualizarFuncaoComponent
   },
 ];
 @NgModule({

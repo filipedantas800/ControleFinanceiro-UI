@@ -8,6 +8,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DialogExclusaoCategoriasComponent } from '../../Categoria/listagem-categorias/listagem-categorias.component';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 @Component({
@@ -71,5 +73,44 @@ export class ListagemFuncoesComponent implements OnInit {
     return this.opcoesFuncoes.filter((funcao) =>
       funcao.toLowerCase().includes(nome.toLowerCase())
     );
+  }
+
+  AbrirDialog(funcaoId: string, nome: string): void {
+    this.dialog.open(DialogExclusaoFuncoesComponent, {
+      data: {
+        funcaoId: funcaoId,
+        nome: nome
+      },
+    }).afterClosed().subscribe(resultado => {
+      if (resultado === true) {
+        this.funcoesService.PegarTodos().subscribe(dados => {
+          this.funcoes.data = dados;
+          this.funcoes.paginator = this.paginator;
+        });
+        this.displayedColumns = this.ExibirColunas();
+      }
+    })
+  }
+}
+
+@Component({
+  selector: 'app-dialog-exclusao-funcoes',
+  templateUrl: 'dialog-exclusao-funcoes.html'
+})
+export class DialogExclusaoFuncoesComponent {
+  resultadoNull: string | undefined;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    private funcoesService: FuncoesService,
+    private snackBar: MatSnackBar) { }
+
+  ExcluirFuncao(funcaoId: string): void {
+    debugger
+    this.funcoesService.ExcluirFuncao(funcaoId).subscribe(resultado => {
+      this.snackBar.open(resultado.mensagem, this.resultadoNull, {
+        duration: 2000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
+    });
   }
 }
